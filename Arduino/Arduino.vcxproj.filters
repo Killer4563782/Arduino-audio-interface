@@ -29,8 +29,8 @@
     <Filter Include="Source\Rendering\Fonts">
       <UniqueIdentifier>{d11c7819-b1e6-4674-a11f-326be9116f65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Threading">
-      <UniqueIdentifier>{3f4e542e-7317-4ce0-9c50-bba955991e3a}</UniqueIdentifier>
+    <Filter Include="Source\Rendering\Interface\Elements">
+      <UniqueIdentifier>{b359210a-7900-41ee-bd18-67b373317428}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,8 +73,14 @@
     <ClCompile Include="Source\Rendering\IconFont.cpp">
       <Filter>Source\Rendering\Fonts</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Threading\Threading.cpp">
-      <Filter>Source\Threading</Filter>
+    <ClCompile Include="Source\Rendering\Channel.cpp">
+      <Filter>Source\Rendering\Interface\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\Sidebar.cpp">
+      <Filter>Source\Rendering\Interface\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\Processlist.cpp">
+      <Filter>Source\Rendering\Interface\Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="Source\Rendering\Fonts.hpp">
       <Filter>Source\Rendering\Fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Threading\Threading.hpp">
-      <Filter>Source\Threading</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

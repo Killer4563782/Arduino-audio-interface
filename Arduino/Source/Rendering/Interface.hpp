@@ -1,6 +1,5 @@
 ﻿#pragma once 
 #include <imgui.h>
-#include "Audio/AudioDeviceUtils.hpp"
 
 class AudioMixerUI {
 public:
@@ -10,12 +9,7 @@ public:
         RenderSlider();
         RenderProcesslist(); 
     }
-
-    void SetCableManager(VirtualCableManager* manager)
-    {
-        m_cableManager = manager;
-    }
-
+  
     void InitStyle();
 private:
     static inline std::array<const char*, 5> m_channels = {
@@ -61,14 +55,17 @@ private:
     static inline ImVec2 m_mixer_window_size;
     static inline ImVec2 m_mixer_window_pos;
 
-    std::array<std::vector<float>, 5> peakHistory;
-    static constexpr int maxHistory = 40;
     static constexpr float sliderWidth = 48.0f;
     static constexpr float sliderHeight = 180.0f;
     static constexpr float channelPadding = 20.0f;
 
     static inline bool g_extend_window = false;
-    static inline VirtualCableManager* m_cableManager = nullptr;
+
+    static inline std::vector<std::string> audioProcesses;
+    static inline std::vector<std::string> selectedProcesses;
+    static inline std::unordered_set<std::string> cachedAudioProcessSet;
+
+    static inline int m_selected_channel = 0;
 };
 
 inline AudioMixerUI* g_Interface; 

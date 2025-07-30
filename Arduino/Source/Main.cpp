@@ -1,26 +1,27 @@
 #include "Audio/AudioDeviceUtils.hpp"
-#include "Utility/Utility.hpp"
 #include "Rendering/Rendering.hpp"
 #include "Rendering/Interface.hpp"
-#include "Threading/Threading.hpp"
+#include "Utility/Utility.hpp"
 
 int main()
 {
-    FreeConsole(); 
-    g_Threading = new Threading(); 
-    if (g_Threading)
-    {
-        g_Interface = new AudioMixerUI();
-        VirtualCableManager* manager = new VirtualCableManager();
-        manager->Initialize();
-        g_Rendering = new Rendering();
-        g_Interface->SetCableManager(manager);
-        g_Rendering->Run();
+	FreeConsole(); 
 
-        delete g_Rendering;
-        delete manager;
-        delete g_Interface;
-    }
-    delete g_Threading;
-    return EXIT_SUCCESS;
+	try
+	{
+		g_Interface = new AudioMixerUI(); 
+		g_Rendering = new Rendering(); 
+		g_VirtualCableManager = new VirtualCableManager(); 
+		g_VirtualCableManager->Initialize(); 
+		g_Rendering->Run(); 
+		delete g_VirtualCableManager;
+		delete g_Rendering; 
+		delete g_Interface;
+	}
+	catch (const std::exception ex)
+	{
+		std::cout << ex.what() << std::endl; 
+	}
+
+	return EXIT_SUCCESS;
 }

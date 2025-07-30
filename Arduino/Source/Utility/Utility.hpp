@@ -34,16 +34,16 @@ namespace Utility
         return pids;
     }
 
-    inline std::wstring GetMainProcessNameByPID(DWORD pid)
+    inline std::string GetMainProcessNameByPID(DWORD pid)
     {
         HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         if (snapshot == INVALID_HANDLE_VALUE)
-            return L"";
+            return "";
 
         PROCESSENTRY32W entry{};
         entry.dwSize = sizeof(entry);
 
-        std::wstring result;
+        std::string result;
 
         if (Process32FirstW(snapshot, &entry))
         {
@@ -51,7 +51,14 @@ namespace Utility
             {
                 if (entry.th32ProcessID == pid)
                 {
-                    result = entry.szExeFile;
+                    int size_needed = WideCharToMultiByte(CP_UTF8, 0, entry.szExeFile, -1, nullptr, 0, nullptr, nullptr);
+                    if (size_needed > 0)
+                    {
+                        std::string utf8Name(size_needed, 0);
+                        WideCharToMultiByte(CP_UTF8, 0, entry.szExeFile, -1, &utf8Name[0], size_needed, nullptr, nullptr);
+                        utf8Name.resize(size_needed - 1);
+                        result = utf8Name;
+                    }
                     break;
                 }
             }
@@ -86,12 +93,33 @@ namespace Utility
         return name; 
     }
 
+    inline std::string WStringToUtf8(const std::wstring& wstr)
+    {
+        if (wstr.empty())
+            return {};
+
+        int size_needed = WideCharToMultiByte(CP_UTF8, 0, wstr.data(), (int)wstr.size(), nullptr, 0, nullptr, nullptr);
+        std::string result(size_needed, 0);
+        WideCharToMultiByte(CP_UTF8, 0, wstr.data(), (int)wstr.size(), &result[0], size_needed, nullptr, nullptr);
+        return result;
+    }
+
+    inline void FlipBit(bool& bit)
+    {
+        bit = !bit;
+    }
+
+    inline void ResizeWindow(HWND hwnd, int width, int height)
+    {
+        RECT rect = { 0, 0, width, height };
+        AdjustWindowRect(&rect, WS_OVERLAPPED, FALSE);
+        SetWindowPos(hwnd, nullptr, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_NOMOVE | SWP_NOZORDER);
+    }
+
     inline std::vector<std::string> GetAudioOutputProcesses()
     {
         std::vector<std::string> audioProcesses; 
         HRESULT hr; 
-
-        CoInitialize(nullptr); 
 
         IMMDeviceEnumerator* deviceEnumerator = nullptr; 
 		hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&deviceEnumerator));
@@ -160,7 +188,6 @@ namespace Utility
         sessionManager->Release();
         defaultdevice->Release();
         deviceEnumerator->Release();
-        CoUninitialize();
 		return audioProcesses;
     }
 }

@@ -24,7 +24,7 @@ public:
     HRESULT Initialize();
 
     std::vector<std::wstring> ListVirtualCables();
-    std::map<UINT, std::set<std::wstring>> GetAssignedAppNamesPerCable() const;
+    std::map<UINT, std::set<std::string>> GetAssignedAppNamesPerCable() const;
     std::vector<std::pair<UINT, std::vector<DWORD>>> GetAllAssignedApps() const;
 
     HRESULT AssignAppToCable(DWORD processId, UINT cableIndex);
@@ -46,3 +46,5 @@ private:
     IMMDevice* pDefaultDevice;
     std::vector<VirtualCable> virtualCables;
 };
+
+inline VirtualCableManager* g_VirtualCableManager; 

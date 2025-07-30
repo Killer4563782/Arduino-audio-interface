@@ -19,8 +19,9 @@
 #include <unordered_map>
 #include <psapi.h>   
 #include <algorithm>
-#include <thread>
+#include <atlbase.h>
 #include <mutex>
 #include <condition_variable>
 #include <queue>
 #include <atomic>
+#include <unordered_set>

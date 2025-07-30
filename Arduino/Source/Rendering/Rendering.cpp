@@ -4,17 +4,9 @@
 
 void Rendering::CreateWindowAndDX11()
 {
-    WNDCLASSEXW wc = { sizeof(WNDCLASSEXW), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"ImGuiDX11App", nullptr };
-    if (!RegisterClassExW(&wc))
-    {
-        throw std::runtime_error("Failed to register window class: " + std::to_string(GetLastError()));
-    }
-
-    hwnd = CreateWindowW(L"ImGuiDX11App", L"ImGui DX11 Example", WS_OVERLAPPEDWINDOW, 100, 100, 770, 350, nullptr, nullptr, wc.hInstance, this);
-    if (!hwnd)
-    {
-        throw std::runtime_error("Failed to create window: " + std::to_string(GetLastError()));
-    }
+    WNDCLASSEXW wc = { sizeof(WNDCLASSEXW), CS_CLASSDC, WndProc, NULL, NULL, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"Arduino Soundmixer", nullptr };
+    RegisterClassExW(&wc); 
+    hwnd = CreateWindowW(L"Arduino Soundmixer", L"Arduino Soundmixer", WS_OVERLAPPEDWINDOW, 100, 100, 770, 350, nullptr, nullptr, wc.hInstance, this);
 
     DXGI_SWAP_CHAIN_DESC scd = {};
     scd.BufferCount = 1;
@@ -26,72 +18,36 @@ void Rendering::CreateWindowAndDX11()
     scd.SampleDesc.Count = 1;
     scd.Windowed = TRUE;
 
-    HRESULT hr = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, nullptr, 0, D3D11_SDK_VERSION, &scd, &swap_chain, &device, nullptr, &device_context);
-    if (FAILED(hr))
-    {
-        throw std::runtime_error("Failed to create DX11 device and swap chain: " + std::to_string(hr));
-    }
-
+    D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, nullptr, 0, D3D11_SDK_VERSION, &scd, &swap_chain, &device, nullptr, &device_context);
     ID3D11Texture2D* back_buffer = nullptr;
-    hr = swap_chain->GetBuffer(0, IID_PPV_ARGS(&back_buffer));
-    if (FAILED(hr))
-    {
-        throw std::runtime_error("Failed to get back buffer: " + std::to_string(hr));
-    }
-
-    hr = device->CreateRenderTargetView(back_buffer, nullptr, &render_target_view);
+    swap_chain->GetBuffer(0, IID_PPV_ARGS(&back_buffer));
+    device->CreateRenderTargetView(back_buffer, nullptr, &render_target_view);
     back_buffer->Release();
-    if (FAILED(hr))
-    {
-        throw std::runtime_error("Failed to create render target view: " + std::to_string(hr));
-    }
 }
 
 void Rendering::InitializeImGui()
 {
-    IMGUI_CHECKVERSION();
+    ImFontConfig config;
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
-    ImFontConfig config;
     const ImWchar iconRanges[] = {
         0xe005,
         0xf8ff,
         0
     };
 
-    config.FontDataOwnedByAtlas = false;
     m_default_font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\Arial.ttf", 18.f);
-    m_icon_font = io.Fonts->AddFontFromMemoryTTF((void*)Fonts::Iconfont, Fonts::IconfontSize, 16.f, &config, iconRanges);
-
-    if (m_default_font == nullptr)
-    {
-        throw std::runtime_error("Failed to load default font!"); 
-        return;
-    }
-    
-    if (m_icon_font == nullptr)
-    {
-        throw std::runtime_error("Failed to load icon font!"); 
-        return; 
-    }
+    m_icon_font =    io.Fonts->AddFontFromMemoryTTF((void*)Fonts::Iconfont, Fonts::IconfontSize, 16.f, &config, iconRanges);
 
     ImGui::StyleColorsDark();
-
-    if (!ImGui_ImplWin32_Init(hwnd))
-    {
-        throw std::runtime_error("Failed to initialize ImGui Win32 backend");
-    }
-
-    if (!ImGui_ImplDX11_Init(device, device_context))
-    {
-        throw std::runtime_error("Failed to initialize ImGui DX11 backend");
-    }
+    ImGui_ImplWin32_Init(hwnd); 
+    ImGui_ImplDX11_Init(device, device_context); 
 }
 
 void Rendering::Run()
 {
+    g_Interface->InitStyle();
     ShowWindow(hwnd, SW_SHOWDEFAULT);
     UpdateWindow(hwnd);
 
@@ -108,17 +64,12 @@ void Rendering::Run()
         ImGui_ImplDX11_NewFrame();
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
-        {
-            g_Interface->InitStyle();
-            g_Interface->Render();
-        }
-        float clear_color[4] = { 0.1f, 0.1f, 0.1f, 1.0f };
+        g_Interface->Render();
         device_context->OMSetRenderTargets(1, &render_target_view, nullptr);
         device_context->ClearRenderTargetView(render_target_view, clear_color);
         ImGui::Render();
         ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
         swap_chain->Present(1, 0);
-        //std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
     }
 }
 

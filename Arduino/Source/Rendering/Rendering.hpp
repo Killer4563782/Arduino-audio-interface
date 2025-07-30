@@ -37,6 +37,12 @@ private:
     ID3D11DeviceContext* device_context = nullptr;
     IDXGISwapChain* swap_chain = nullptr;
     ID3D11RenderTargetView* render_target_view = nullptr;
+    static inline float clear_color[4] = { 
+        0.1f, 
+        0.1f, 
+        0.1f, 
+        1.0f 
+    };
 public: 
     ImFont* m_default_font; 
     ImFont* m_icon_font; 

@@ -62,16 +62,16 @@ std::vector<std::pair<UINT, std::vector<DWORD>>> VirtualCableManager::GetAllAssi
     return result;
 }
 
-std::map<UINT, std::set<std::wstring>> VirtualCableManager::GetAssignedAppNamesPerCable() const
+std::map<UINT, std::set<std::string>> VirtualCableManager::GetAssignedAppNamesPerCable() const
 {
-    std::map<UINT, std::set<std::wstring>> cableAppMap;
+    std::map<UINT, std::set<std::string>> cableAppMap;
 
     for (UINT i = 0; i < virtualCables.size(); ++i)
     {
         const auto& cable = virtualCables[i];
         for (DWORD pid : cable.assignedProcesses)
         {
-            std::wstring processName = Utility::GetMainProcessNameByPID(pid);
+            std::string processName = Utility::GetMainProcessNameByPID(pid);
             if (!processName.empty())
             {
                 cableAppMap[i].insert(processName);

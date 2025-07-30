@@ -31,10 +31,12 @@
     <ClCompile Include="Source\ImGui\imgui_tables.cpp" />
     <ClCompile Include="Source\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Rendering\Channel.cpp" />
     <ClCompile Include="Source\Rendering\IconFont.cpp" />
     <ClCompile Include="Source\Rendering\Interface.cpp" />
+    <ClCompile Include="Source\Rendering\Processlist.cpp" />
     <ClCompile Include="Source\Rendering\Rendering.cpp" />
-    <ClCompile Include="Source\Threading\Threading.cpp" />
+    <ClCompile Include="Source\Rendering\Sidebar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Audio\AudioDeviceUtils.hpp" />
@@ -53,7 +55,6 @@
     <ClInclude Include="Source\Rendering\Fonts.hpp" />
     <ClInclude Include="Source\Rendering\Interface.hpp" />
     <ClInclude Include="Source\Rendering\Rendering.hpp" />
-    <ClInclude Include="Source\Threading\Threading.hpp" />
     <ClInclude Include="Source\Utility\Utility.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
