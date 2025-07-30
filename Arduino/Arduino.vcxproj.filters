@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source\Audio">
+      <UniqueIdentifier>{b67bf391-8dfa-4330-9671-0308613e2baa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering">
+      <UniqueIdentifier>{b35f0ea0-3f3e-471b-b81a-4604656b6d64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Framework">
+      <UniqueIdentifier>{6cc6bfc7-626e-49d7-887f-62f909ec4308}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Interface">
+      <UniqueIdentifier>{f73fd4e4-6ecf-41dd-b498-a153598b2eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\precompile">
+      <UniqueIdentifier>{baed53c7-a93b-4394-9486-2507b0add59d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\precompile\Compilerconfig">
+      <UniqueIdentifier>{4ef7e809-c945-4a65-823c-7ebcfe5e23c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utility">
+      <UniqueIdentifier>{459ff56b-b940-49fa-afb3-988e24c22ed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Fonts">
+      <UniqueIdentifier>{d11c7819-b1e6-4674-a11f-326be9116f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Threading">
+      <UniqueIdentifier>{3f4e542e-7317-4ce0-9c50-bba955991e3a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Audio\AudioDeviceUtils.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\Rendering.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\Interface.cpp">
+      <Filter>Source\Rendering\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common.cpp">
+      <Filter>Source\precompile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImGui\imgui.cpp">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImGui\imgui_demo.cpp">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImGui\imgui_draw.cpp">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImGui\imgui_impl_dx11.cpp">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImGui\imgui_impl_win32.cpp">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImGui\imgui_tables.cpp">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImGui\imgui_widgets.cpp">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\IconFont.cpp">
+      <Filter>Source\Rendering\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Threading\Threading.cpp">
+      <Filter>Source\Threading</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Audio\AudioDeviceUtils.hpp">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\Rendering.hpp">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\Interface.hpp">
+      <Filter>Source\Rendering\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Common.hpp">
+      <Filter>Source\precompile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Macros.hpp">
+      <Filter>Source\precompile\Compilerconfig</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Configuration.hpp">
+      <Filter>Source\precompile\Compilerconfig</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework.hpp">
+      <Filter>Source\precompile\Compilerconfig</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility\Utility.hpp">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImGui\imconfig.h">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImGui\imgui.h">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImGui\imgui_impl_dx11.h">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImGui\imgui_impl_win32.h">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImGui\imgui_internal.h">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImGui\imstb_rectpack.h">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImGui\imstb_textedit.h">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImGui\imstb_truetype.h">
+      <Filter>Source\Rendering\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\Fonts.hpp">
+      <Filter>Source\Rendering\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Threading\Threading.hpp">
+      <Filter>Source\Threading</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
