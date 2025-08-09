@@ -55,17 +55,17 @@ private:
     static inline ImVec2 m_mixer_window_size;
     static inline ImVec2 m_mixer_window_pos;
 
-    static constexpr float sliderWidth = 48.0f;
-    static constexpr float sliderHeight = 180.0f;
     static constexpr float channelPadding = 20.0f;
-
-    static inline bool g_extend_window = false;
 
     static inline std::vector<std::string> audioProcesses;
     static inline std::vector<std::string> selectedProcesses;
     static inline std::unordered_set<std::string> cachedAudioProcessSet;
 
     static inline int m_selected_channel = 0;
+
+    static inline bool refreshSidebar = true;
+    static inline std::map<UINT, std::set<std::string>> cachedAppMap;
+    static inline std::vector<std::pair<UINT, std::vector<DWORD>>> cachedAllAssigned;
 };
 
 inline AudioMixerUI* g_Interface; 

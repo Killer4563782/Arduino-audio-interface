@@ -10,7 +10,7 @@ void AudioMixerUI::RenderSlider()
 		ImGui::PushStyleVar(ImGuiStyleVar_GrabRounding, 10.0f);
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(22, 10));
 
-		for (int i = 0; i < 5; ++i)
+		for (int i = 0; i < MAX_CABLES; ++i)
 		{
 			if (i > 0) ImGui::SameLine();
 			ImGui::PushID(i);

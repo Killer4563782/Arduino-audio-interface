@@ -1,9 +1,13 @@
 #pragma once
+#include "ControlHelper.hpp"
+#include "SessionHelper.hpp"
 
 class VirtualCableManager {
 public:
-    VirtualCableManager()  : pEnumerator(nullptr), pDefaultDevice(nullptr)
+    VirtualCableManager() 
     {
+        pEnumerator = nullptr; 
+        pDefaultDevice = nullptr;
         virtualCables.resize(MAX_CABLES);
     }
 
@@ -11,26 +15,54 @@ public:
     {
         for (auto& cable : virtualCables)
         {
-            if (cable.sessionManager)
-            {
-                cable.sessionManager->Release();
-            }
+            SAFE_RELEASE(cable.sessionManager);
         }
-
         SAFE_RELEASE(pDefaultDevice);
         SAFE_RELEASE(pEnumerator);
     }
 public:
-    HRESULT Initialize();
+    HRESULT Initialize(); 
 
-    std::vector<std::wstring> ListVirtualCables();
-    std::map<UINT, std::set<std::string>> GetAssignedAppNamesPerCable() const;
-    std::vector<std::pair<UINT, std::vector<DWORD>>> GetAllAssignedApps() const;
+    HRESULT CreateVirtualCable(UINT cableIndex);
+    std::vector<std::pair<UINT, std::vector<DWORD>>> GetAllAssignedApps() const; 
+    std::map<UINT, std::set<std::string>> GetAssignedAppNamesPerCable() const; 
 
-    HRESULT AssignAppToCable(DWORD processId, UINT cableIndex);
-    HRESULT RemoveAppFromCable(DWORD processId, UINT cableindex); 
-    HRESULT GetCableVolume(UINT cableIndex, float* volume);
-    HRESULT SetCableVolume(UINT cableIndex, float volume);
+    std::vector<std::wstring> ListVirtualCables() const
+    {
+        std::vector<std::wstring> cables;
+        for (const auto& cable : virtualCables)
+        {
+            cables.push_back(cable.id);
+        }
+        return cables;
+    }
+
+    HRESULT AssignAppToCable(DWORD processId, UINT cableIndex); 
+    HRESULT RemoveAppFromCable(DWORD processId, UINT cableIndex); 
+
+    HRESULT GetCableVolume(UINT cableIndex, float* volume)
+    {
+        if (cableIndex >= MAX_CABLES || !volume) 
+            return E_INVALIDARG;
+
+        VirtualCable& cable = virtualCables[cableIndex];
+        if (!cable.sessionManager) 
+            return E_UNEXPECTED;
+
+        return VolumeControlHelper::GetCableVolume(cable.sessionManager, cable.assignedProcesses, volume, cable.id);
+    }
+
+    HRESULT SetCableVolume(UINT cableIndex, float volume)
+    {
+        if (cableIndex >= MAX_CABLES) 
+            return E_INVALIDARG;
+
+        VirtualCable& cable = virtualCables[cableIndex];
+        if (!cable.sessionManager) 
+            return E_UNEXPECTED;
+
+        return VolumeControlHelper::SetCableVolume(cable.sessionManager, cable.assignedProcesses, volume, cable.id);
+    }
 private:
     struct VirtualCable 
     {
@@ -39,11 +71,8 @@ private:
         IAudioSessionManager2* sessionManager;
     };
 
-    HRESULT EnumerateSessions(IAudioSessionManager2* sessionManager, std::vector<DWORD>& processIds);
-    HRESULT CreateVirtualCable(UINT cableIndex);
-private:
-    IMMDeviceEnumerator* pEnumerator;
-    IMMDevice* pDefaultDevice;
+    ComPtr<IMMDeviceEnumerator> pEnumerator;
+    ComPtr<IMMDevice> pDefaultDevice;
     std::vector<VirtualCable> virtualCables;
 };
 

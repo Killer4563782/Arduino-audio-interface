@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Audio\AudioDeviceUtils.hpp" />
+    <ClInclude Include="Source\Audio\ControlHelper.hpp" />
+    <ClInclude Include="Source\Audio\SessionHelper.hpp" />
     <ClInclude Include="Source\Common.hpp" />
     <ClInclude Include="Source\Configuration.hpp" />
     <ClInclude Include="Source\Framework.hpp" />
@@ -52,9 +54,11 @@
     <ClInclude Include="Source\ImGui\imstb_textedit.h" />
     <ClInclude Include="Source\ImGui\imstb_truetype.h" />
     <ClInclude Include="Source\Macros.hpp" />
+    <ClInclude Include="Source\Rendering\ChannelHelper.hpp" />
     <ClInclude Include="Source\Rendering\Fonts.hpp" />
     <ClInclude Include="Source\Rendering\Interface.hpp" />
     <ClInclude Include="Source\Rendering\Rendering.hpp" />
+    <ClInclude Include="Source\Rendering\SidebarHelper.hpp" />
     <ClInclude Include="Source\Utility\Utility.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

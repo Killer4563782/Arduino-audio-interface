@@ -32,6 +32,12 @@
     <Filter Include="Source\Rendering\Interface\Elements">
       <UniqueIdentifier>{b359210a-7900-41ee-bd18-67b373317428}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Rendering\Interface\Helper">
+      <UniqueIdentifier>{045c342b-745b-4a19-8482-36a6816f857d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Audio\Helper">
+      <UniqueIdentifier>{0601bd73-7285-4f34-a882-ccb1e1dad592}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\AudioDeviceUtils.cpp">
@@ -134,6 +140,18 @@
     </ClInclude>
     <ClInclude Include="Source\Rendering\Fonts.hpp">
       <Filter>Source\Rendering\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\ChannelHelper.hpp">
+      <Filter>Source\Rendering\Interface\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\SidebarHelper.hpp">
+      <Filter>Source\Rendering\Interface\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Audio\SessionHelper.hpp">
+      <Filter>Source\Audio\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Audio\ControlHelper.hpp">
+      <Filter>Source\Audio\Helper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
