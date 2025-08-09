@@ -6,7 +6,7 @@ void Rendering::CreateWindowAndDX11()
 {
     WNDCLASSEXW wc = { sizeof(WNDCLASSEXW), CS_CLASSDC, WndProc, NULL, NULL, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"Arduino Soundmixer", nullptr };
     RegisterClassExW(&wc); 
-    hwnd = CreateWindowW(L"Arduino Soundmixer", L"Arduino Soundmixer", WS_OVERLAPPEDWINDOW, 100, 100, 770, 350, nullptr, nullptr, wc.hInstance, this);
+    hwnd = CreateWindowW(L"Arduino Soundmixer", L"Arduino Soundmixer", WS_OVERLAPPEDWINDOW, 100, 100, 778, 450, nullptr, nullptr, wc.hInstance, this);
 
     DXGI_SWAP_CHAIN_DESC scd = {};
     scd.BufferCount = 1;

@@ -6,8 +6,8 @@
 void AudioMixerUI::RenderProcesslist()
 {
     ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(ImColor(31, 31, 31, 255)));
-    ImGui::SetNextWindowPos(ImVec2(m_mixer_window_pos.x + m_mixer_window_size.x, m_mixer_window_pos.y));
-    ImGui::SetNextWindowSize(ImVec2(400, m_mixer_window_size.y));
+    ImGui::SetNextWindowPos(ImVec2(m_mixer_window_pos.x + m_mixer_window_size.x, 0));
+    ImGui::SetNextWindowSize(ImVec2(400, m_mixer_window_size.y + 100));
 
     static std::unordered_map<std::string, std::vector<DWORD>> processPidMap;
 

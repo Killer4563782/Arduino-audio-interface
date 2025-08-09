@@ -13,8 +13,8 @@ public:
 
     void SetWindowProperties()
     {
-        ImGui::SetNextWindowSize(ImVec2(200, 320));
-        ImGui::SetNextWindowPos(ImVec2(0, 0));
+        ImGui::SetNextWindowSize(ImVec2(200, 350));
+        ImGui::SetNextWindowPos(ImVec2(0, 60));
         ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(ImColor(31, 31, 31, 255)));
     }
 
@@ -94,7 +94,7 @@ public:
     {
         if (ImGui::Button("+ Add App", ImVec2(100, 30)))
         {
-            g_extend_window ? Utility::ResizeWindow(GetActiveWindow(), 770, 350) : Utility::ResizeWindow(GetActiveWindow(), 770 + 400, 350);
+            g_extend_window ? Utility::ResizeWindow(GetActiveWindow(), 778, 450) : Utility::ResizeWindow(GetActiveWindow(), 770 + 400, 450);
             g_extend_window = !g_extend_window;
         }
     }

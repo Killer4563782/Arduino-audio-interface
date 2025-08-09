@@ -10,6 +10,7 @@ public:
 
     void Render()
     {
+        RenderTabBar();
         RenderSidebar();
         RenderSlider();
         RenderProcesslist(); 
@@ -52,6 +53,7 @@ private:
     void RenderSlider();
     void ApplyConfig(); 
     void RenderSidebar();
+    void RenderTabBar(); 
     void RenderProcesslist(); 
     void DrawSingleChannel(int index);
 private: 
@@ -61,6 +63,9 @@ private:
     static inline ImVec2 m_mixer_window_size;
     static inline ImVec2 m_mixer_window_pos;
 
+    static inline ImVec2 m_tabbar_window_size;
+    static inline ImVec2 m_tabbar_window_pos;
+private:
     static constexpr float channelPadding = 20.0f;
 
     static inline std::vector<std::string> audioProcesses;
@@ -68,6 +73,7 @@ private:
     static inline std::unordered_set<std::string> cachedAudioProcessSet;
 
     static inline int m_selected_channel = 0;
+    static inline int m_selected_tab = 0; 
 
     static inline bool refreshSidebar = true;
     static inline std::map<UINT, std::set<std::string>> cachedAppMap;
