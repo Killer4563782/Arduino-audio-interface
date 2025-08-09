@@ -4,9 +4,23 @@
 
 void Rendering::CreateWindowAndDX11()
 {
-    WNDCLASSEXW wc = { sizeof(WNDCLASSEXW), CS_CLASSDC, WndProc, NULL, NULL, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"Arduino Soundmixer", nullptr };
+    WNDCLASSEXW wc = { 
+        sizeof(WNDCLASSEXW), 
+        CS_CLASSDC, 
+        WndProc, 
+        NULL, 
+        NULL, 
+        GetModuleHandleA(nullptr), 
+        nullptr, 
+        nullptr, 
+        nullptr, 
+        nullptr, 
+        L"Arduino Soundmixer",
+        nullptr 
+    };
+    
     RegisterClassExW(&wc); 
-    hwnd = CreateWindowW(L"Arduino Soundmixer", L"Arduino Soundmixer", WS_OVERLAPPEDWINDOW, 100, 100, 778, 450, nullptr, nullptr, wc.hInstance, this);
+    hwnd = CreateWindowExW(0L, L"Arduino Soundmixer", L"Arduino Soundmixer", WS_OVERLAPPEDWINDOW, 100, 100, 778, 450, nullptr, nullptr, wc.hInstance, this);
 
     DXGI_SWAP_CHAIN_DESC scd = {};
     scd.BufferCount = 1;
@@ -75,29 +89,15 @@ void Rendering::Run()
 
 void Rendering::ResizeBuffers(UINT width, UINT height)
 {
-    if (!swap_chain || !device_context || width == 0 || height == 0) return;
+    if (!swap_chain || !device_context || width == 0 || height == 0) 
+        return;
 
     SAFE_RELEASE(render_target_view);
-
-    HRESULT hr = swap_chain->ResizeBuffers(1, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
-    if (FAILED(hr))
-    {
-        throw std::runtime_error("Failed to resize swap chain buffers: " + std::to_string(hr));
-    }
-
+    swap_chain->ResizeBuffers(1, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
     ID3D11Texture2D* back_buffer = nullptr;
-    hr = swap_chain->GetBuffer(0, IID_PPV_ARGS(&back_buffer));
-    if (FAILED(hr))
-    {
-        throw std::runtime_error("Failed to get back buffer after resize: " + std::to_string(hr));
-    }
-
-    hr = device->CreateRenderTargetView(back_buffer, nullptr, &render_target_view);
+    swap_chain->GetBuffer(0, IID_PPV_ARGS(&back_buffer));
+    device->CreateRenderTargetView(back_buffer, nullptr, &render_target_view);
     back_buffer->Release();
-    if (FAILED(hr))
-    {
-        throw std::runtime_error("Failed to create render target view after resize: " + std::to_string(hr));
-    }
 }
 
 LRESULT CALLBACK Rendering::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -112,13 +112,13 @@ LRESULT CALLBACK Rendering::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
     {
         CREATESTRUCT* createStruct = reinterpret_cast<CREATESTRUCT*>(lParam);
         app = static_cast<Rendering*>(createStruct->lpCreateParams);
-        SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(app));
+        SetWindowLongPtrW(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(app));
         BOOL dark = TRUE;
         DwmSetWindowAttribute(hwnd, 20, &dark, sizeof(dark));
     }
     else
     {
-        app = reinterpret_cast<Rendering*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+        app = reinterpret_cast<Rendering*>(GetWindowLongPtrW(hwnd, GWLP_USERDATA));
     }
 
     switch (msg)

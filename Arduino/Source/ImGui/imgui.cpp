@@ -7687,17 +7687,54 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
         window->InnerClipRect.ClipWithFull(host_rect);
 
         // SCROLLING
+        {
+            // Default imgui scrolling, can be reanabled it needed to 
+            //window->ScrollMax.x = ImMax(0.0f, window->ContentSize.x + window->WindowPadding.x * 2.0f - window->InnerRect.GetWidth());
+            //window->ScrollMax.y = ImMax(0.0f, window->ContentSize.y + window->WindowPadding.y * 2.0f - window->InnerRect.GetHeight());
+            //window->Scroll = CalcNextScrollFromScrollTargetAndClamp(window);
+            //window->ScrollTarget = ImVec2(FLT_MAX, FLT_MAX);
+            //window->DecoInnerSizeX1 = window->DecoInnerSizeY1 = 0.0f;
 
-        // Lock down maximum scrolling
-        // The value of ScrollMax are ahead from ScrollbarX/ScrollbarY which is intentionally using InnerRect from previous rect in order to accommodate
-        // for right/bottom aligned items without creating a scrollbar.
-        window->ScrollMax.x = ImMax(0.0f, window->ContentSize.x + window->WindowPadding.x * 2.0f - window->InnerRect.GetWidth());
-        window->ScrollMax.y = ImMax(0.0f, window->ContentSize.y + window->WindowPadding.y * 2.0f - window->InnerRect.GetHeight());
+            window->ScrollMax.x = ImMax(0.0f, window->ContentSize.x + window->WindowPadding.x * 2.0f - window->InnerRect.GetWidth());
+            window->ScrollMax.y = ImMax(0.0f, window->ContentSize.y + window->WindowPadding.y * 2.0f - window->InnerRect.GetHeight());
 
-        // Apply scrolling
-        window->Scroll = CalcNextScrollFromScrollTargetAndClamp(window);
-        window->ScrollTarget = ImVec2(FLT_MAX, FLT_MAX);
-        window->DecoInnerSizeX1 = window->DecoInnerSizeY1 = 0.0f;
+            float needed_scroll = CalcNextScrollFromScrollTargetAndClamp(window).y;
+            window->ScrollTarget = ImVec2(window->ScrollTarget.x, window->ScrollTarget.y + g.NextWindowData.ScrollVal.y);
+
+            const ImGuiID id = window->GetID(name);
+
+            static std::map<ImGuiID, float> anim;
+            auto it_anim = anim.find(id);
+
+            if (it_anim == anim.end())
+            {
+                anim.insert({ id, 0.f });
+                it_anim = anim.find(id);
+            }
+
+            if (it_anim->second < needed_scroll)
+            {
+                it_anim->second += abs(needed_scroll - it_anim->second) / 15.f * (1.f - g.IO.DeltaTime);
+            }
+            else if (it_anim->second > needed_scroll)
+            {
+                it_anim->second -= abs(needed_scroll - it_anim->second) / 15.f * (1.f - g.IO.DeltaTime);
+            }
+
+            if (!ImGui::IsMouseDown(0))
+            {
+                if (window->Scroll.y != needed_scroll)
+                {
+                    window->Scroll.y = it_anim->second;
+                }
+            }
+            else
+            {
+                window->Scroll = CalcNextScrollFromScrollTargetAndClamp(window);
+                window->ScrollTarget = ImVec2(FLT_MAX, FLT_MAX);
+            }
+            window->DecoInnerSizeX1 = window->DecoInnerSizeY1 = 0.0f;
+        }
 
         // DRAWING
 

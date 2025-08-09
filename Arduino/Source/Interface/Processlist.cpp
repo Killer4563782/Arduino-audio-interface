@@ -15,7 +15,6 @@ void AudioMixerUI::RenderProcesslist()
     {
         if (ImGui::Button("Refresh", ImVec2(380, 30)))
         {
-            std::cerr << "Processlist refresh triggered" << std::endl;
             auto fresh_list = Utility::GetAudioOutputProcesses();
             processPidMap.clear();
             audioProcesses.clear();
@@ -44,7 +43,6 @@ void AudioMixerUI::RenderProcesslist()
                         processPidMap[process] = pids;
                         cachedAudioProcessSet.insert(process);
                         audioProcesses.push_back(process);
-                        std::cerr << "Added unassigned process: " << process << std::endl;
                     }
                 }
             }

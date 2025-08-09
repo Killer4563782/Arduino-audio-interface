@@ -40,12 +40,23 @@ void AudioMixerUI::RenderSlider()
 				ImGui::SeparatorText("General Settings"); 
 				for (int i = 0; i < MAX_CABLES; ++i)
 				{
-					char buf[32];
+					char buf[64];
 					snprintf(buf, sizeof(buf), "%s", m_channel_names[i].c_str());
 					if (ImGui::InputText(("Channel " + std::to_string(i + 1)).c_str(), buf, sizeof(buf)))
 					{
 						m_channel_names[i] = buf;
 					}
+				}
+				ImGui::SeparatorText("Color Option"); 
+				ImGuiStyle& style = ImGui::GetStyle();
+				for (int i = 0; i < ImGuiCol_COUNT; i++)
+				{
+					const char* name = ImGui::GetStyleColorName(i); 
+					ImGui::PushID(i);
+					ImGui::ColorEdit4("##color", (float*)&style.Colors[i], ImGuiColorEditFlags_AlphaBar);
+					ImGui::SameLine(0.0f, style.ItemInnerSpacing.x);
+					ImGui::TextUnformatted(name);
+					ImGui::PopID();
 				}
 			}
 			break; 
