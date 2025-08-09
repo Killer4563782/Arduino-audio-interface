@@ -14,9 +14,6 @@
     <Filter Include="Source\Rendering\Framework">
       <UniqueIdentifier>{6cc6bfc7-626e-49d7-887f-62f909ec4308}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Rendering\Interface">
-      <UniqueIdentifier>{f73fd4e4-6ecf-41dd-b498-a153598b2eab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\precompile">
       <UniqueIdentifier>{baed53c7-a93b-4394-9486-2507b0add59d}</UniqueIdentifier>
     </Filter>
@@ -29,14 +26,20 @@
     <Filter Include="Source\Rendering\Fonts">
       <UniqueIdentifier>{d11c7819-b1e6-4674-a11f-326be9116f65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Rendering\Interface\Elements">
-      <UniqueIdentifier>{b359210a-7900-41ee-bd18-67b373317428}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Rendering\Interface\Helper">
-      <UniqueIdentifier>{045c342b-745b-4a19-8482-36a6816f857d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Audio\Helper">
       <UniqueIdentifier>{0601bd73-7285-4f34-a882-ccb1e1dad592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Interface">
+      <UniqueIdentifier>{f73fd4e4-6ecf-41dd-b498-a153598b2eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Interface\Elements">
+      <UniqueIdentifier>{b359210a-7900-41ee-bd18-67b373317428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Interface\Helper">
+      <UniqueIdentifier>{045c342b-745b-4a19-8482-36a6816f857d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Configuration">
+      <UniqueIdentifier>{35be8183-52b7-4aac-baeb-70a9ee670f54}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,9 +51,6 @@
     </ClCompile>
     <ClCompile Include="Source\Rendering\Rendering.cpp">
       <Filter>Source\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Rendering\Interface.cpp">
-      <Filter>Source\Rendering\Interface</Filter>
     </ClCompile>
     <ClCompile Include="Source\Common.cpp">
       <Filter>Source\precompile</Filter>
@@ -79,14 +79,17 @@
     <ClCompile Include="Source\Rendering\IconFont.cpp">
       <Filter>Source\Rendering\Fonts</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Rendering\Channel.cpp">
-      <Filter>Source\Rendering\Interface\Elements</Filter>
+    <ClCompile Include="Source\Interface\Interface.cpp">
+      <Filter>Source\Interface</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Rendering\Sidebar.cpp">
-      <Filter>Source\Rendering\Interface\Elements</Filter>
+    <ClCompile Include="Source\Interface\Channel.cpp">
+      <Filter>Source\Interface\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Rendering\Processlist.cpp">
-      <Filter>Source\Rendering\Interface\Elements</Filter>
+    <ClCompile Include="Source\Interface\Processlist.cpp">
+      <Filter>Source\Interface\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Interface\Sidebar.cpp">
+      <Filter>Source\Interface\Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +98,6 @@
     </ClInclude>
     <ClInclude Include="Source\Rendering\Rendering.hpp">
       <Filter>Source\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Rendering\Interface.hpp">
-      <Filter>Source\Rendering\Interface</Filter>
     </ClInclude>
     <ClInclude Include="Source\Common.hpp">
       <Filter>Source\precompile</Filter>
@@ -141,17 +141,23 @@
     <ClInclude Include="Source\Rendering\Fonts.hpp">
       <Filter>Source\Rendering\Fonts</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Rendering\ChannelHelper.hpp">
-      <Filter>Source\Rendering\Interface\Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Rendering\SidebarHelper.hpp">
-      <Filter>Source\Rendering\Interface\Helper</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Audio\SessionHelper.hpp">
       <Filter>Source\Audio\Helper</Filter>
     </ClInclude>
     <ClInclude Include="Source\Audio\ControlHelper.hpp">
       <Filter>Source\Audio\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Interface\Interface.hpp">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Interface\ChannelHelper.hpp">
+      <Filter>Source\Interface\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Interface\SidebarHelper.hpp">
+      <Filter>Source\Interface\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Config\Configuration.hpp">
+      <Filter>Source\Configuration</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

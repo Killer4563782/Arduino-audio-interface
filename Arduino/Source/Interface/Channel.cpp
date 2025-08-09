@@ -2,6 +2,7 @@
 #include "Audio/AudioDeviceUtils.hpp"
 #include "Rendering/Rendering.hpp"
 #include "ChannelHelper.hpp"
+#include "Config/Configuration.hpp"
 
 void AudioMixerUI::DrawSingleChannel(int index)
 {
@@ -34,6 +35,7 @@ void AudioMixerUI::DrawSingleChannel(int index)
                 m_volumes[index] = std::clamp(smoothVolumes[index], 0.0f, 1.0f);
                 lastUnmutedVolumes[index] = m_volumes[index];
                 g_VirtualCableManager->SetCableVolume(index, m_volumes[index]);
+                g_Configuration->SetChannelVolume(index, m_volumes[index]);
             }
 
             if (ImGui::IsItemHovered())
@@ -43,6 +45,7 @@ void AudioMixerUI::DrawSingleChannel(int index)
                 {
                     m_volumes[index] = std::clamp(m_volumes[index] + scroll * 0.01f, 0.0f, 1.0f);
                     g_VirtualCableManager->SetCableVolume(index, m_volumes[index]);
+                    g_Configuration->SetChannelVolume(index, m_volumes[index]);
                 }
             }
         }
@@ -73,10 +76,11 @@ void AudioMixerUI::DrawSingleChannel(int index)
         ImGui::PushFont(g_Rendering->m_icon_font);
 
         const char* label = m_muted_channels[index] ? ICON_FA_MICROPHONE_SLASH : ICON_FA_MICROPHONE;
-        if (ImGui::Button(label, ImVec2(32.0f, 32.0f)))
+        if (ImGui::Button(label, ImVec2(32.f, 32.f)))
         {
             m_muted_channels[index] = !m_muted_channels[index];
             g_VirtualCableManager->SetCableVolume(index, m_muted_channels[index] ? 0.f : m_volumes[index]);
+            g_Configuration->SetChannelVolume(index, m_muted_channels[index] ? 0.f : m_volumes[index]);
         }
 
         ImGui::PopFont();

@@ -3,6 +3,11 @@
 
 class AudioMixerUI {
 public:
+    AudioMixerUI()
+    {
+        ApplyConfig();
+    }
+
     void Render()
     {
         RenderSidebar();
@@ -45,6 +50,7 @@ private:
     };
 
     void RenderSlider();
+    void ApplyConfig(); 
     void RenderSidebar();
     void RenderProcesslist(); 
     void DrawSingleChannel(int index);

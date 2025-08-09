@@ -2,6 +2,7 @@
 #include "Audio/AudioDeviceUtils.hpp"
 #include "Utility/Utility.hpp"
 #include "SidebarHelper.hpp"
+#include "Config/Configuration.hpp"
 
 void AudioMixerUI::RenderSidebar()
 {
@@ -10,8 +11,12 @@ void AudioMixerUI::RenderSidebar()
 
     if (refreshSidebar)
     {
-        cachedAppMap = g_VirtualCableManager->GetAssignedAppNamesPerCable();
-        cachedAllAssigned = g_VirtualCableManager->GetAllAssignedApps();
+        cachedAllAssigned = g_VirtualCableManager ? g_VirtualCableManager->GetAllAssignedApps() : std::vector<std::pair<UINT, std::vector<DWORD>>>();
+        if (g_VirtualCableManager)
+        {
+            g_Configuration->SyncWithVirtualCableManager();
+            cachedAppMap = g_VirtualCableManager->GetAssignedAppNamesPerCable();
+        }
         refreshSidebar = false;
     }
 

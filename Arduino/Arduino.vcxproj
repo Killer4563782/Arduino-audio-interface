@@ -22,6 +22,7 @@
     <ClCompile Include="Source\Audio\AudioDeviceUtils.cpp" />
     <ClCompile Include="Source\Common.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\ImGui\imgui.cpp" />
     <ClCompile Include="Source\ImGui\imgui_demo.cpp" />
@@ -30,13 +31,13 @@
     <ClCompile Include="Source\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="Source\ImGui\imgui_tables.cpp" />
     <ClCompile Include="Source\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Source\Interface\Channel.cpp" />
+    <ClCompile Include="Source\Interface\Interface.cpp" />
+    <ClCompile Include="Source\Interface\Processlist.cpp" />
+    <ClCompile Include="Source\Interface\Sidebar.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\Rendering\Channel.cpp" />
     <ClCompile Include="Source\Rendering\IconFont.cpp" />
-    <ClCompile Include="Source\Rendering\Interface.cpp" />
-    <ClCompile Include="Source\Rendering\Processlist.cpp" />
     <ClCompile Include="Source\Rendering\Rendering.cpp" />
-    <ClCompile Include="Source\Rendering\Sidebar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Audio\AudioDeviceUtils.hpp" />
@@ -44,6 +45,7 @@
     <ClInclude Include="Source\Audio\SessionHelper.hpp" />
     <ClInclude Include="Source\Common.hpp" />
     <ClInclude Include="Source\Configuration.hpp" />
+    <ClInclude Include="Source\Config\Configuration.hpp" />
     <ClInclude Include="Source\Framework.hpp" />
     <ClInclude Include="Source\ImGui\imconfig.h" />
     <ClInclude Include="Source\ImGui\imgui.h" />
@@ -53,12 +55,12 @@
     <ClInclude Include="Source\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Source\ImGui\imstb_textedit.h" />
     <ClInclude Include="Source\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Source\Interface\ChannelHelper.hpp" />
+    <ClInclude Include="Source\Interface\Interface.hpp" />
+    <ClInclude Include="Source\Interface\SidebarHelper.hpp" />
     <ClInclude Include="Source\Macros.hpp" />
-    <ClInclude Include="Source\Rendering\ChannelHelper.hpp" />
     <ClInclude Include="Source\Rendering\Fonts.hpp" />
-    <ClInclude Include="Source\Rendering\Interface.hpp" />
     <ClInclude Include="Source\Rendering\Rendering.hpp" />
-    <ClInclude Include="Source\Rendering\SidebarHelper.hpp" />
     <ClInclude Include="Source\Utility\Utility.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -118,6 +120,11 @@
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Build\Intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Build\Intermediate\$(Configuration)\</IntDir>
+    <IncludePath>$(ProjectDir)Source\ImGui\;$(ProjectDir)Dependencies\Include\;$(ProjectDir)Source\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -146,14 +153,23 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Common.hpp</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>Common.hpp</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ole32.lib;oleaut32.lib;uuid.lib;d3d11.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

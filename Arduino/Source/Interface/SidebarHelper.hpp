@@ -2,6 +2,7 @@
 #include <imgui.h>
 #include "Audio/AudioDeviceUtils.hpp"
 #include "Utility/Utility.hpp"
+#include "Config/Configuration.hpp"
 
 class SidebarUIHelper {
 public:
@@ -55,6 +56,7 @@ public:
         {
             for (const auto& appName : it->second)
             {
+                ImGui::PushID(appName.c_str());
                 ImGui::Bullet();
                 ImGui::SameLine();
                 if (ImGui::Selectable(appName.c_str(), false))
@@ -66,16 +68,19 @@ public:
 
                         for (DWORD pid : pair.second)
                         {
-                            if (Utility::GetMainProcessNameByPID(pid) == appName)
+                            if (Utility::GetMainProcessNameByPID(pid) == appName && g_VirtualCableManager)
                             {
                                 g_VirtualCableManager->RemoveAppFromCable(pid, index);
+                                g_Configuration->RemoveAppFromChannel(index, appName);
                                 audioProcesses.emplace_back(appName);
                                 refreshSidebar = true;
+                                cachedAppMap[index].erase(appName);
                                 break;
                             }
                         }
                     }
                 }
+                ImGui::PopID();
             }
         }
         else
